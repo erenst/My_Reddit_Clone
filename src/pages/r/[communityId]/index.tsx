@@ -1,4 +1,6 @@
 import { Community } from "@/src/atoms/CommunitiesAtom";
+import Header from "@/src/components/Community/Header";
+import NotFound from "@/src/components/Community/NotFound";
 import { firestore } from "@/src/firebase/clientApp";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
@@ -10,9 +12,13 @@ type CommunityPageProps = {
 
 const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
   if (!communityData) {
-    return <div>Community does not exist!</div>;
+    return <NotFound />;
   }
-  return <div>Welcome To {communityData.id}</div>;
+  return (
+    <>
+      <Header communityData={communityData} />
+    </>
+  );
 };
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // get community data and pass it to client
@@ -23,6 +29,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       context.query.communityId as string
     );
     const communityDoc = await getDoc(communityDocRef);
+
     return {
       props: {
         communityData: communityDoc.exists()
