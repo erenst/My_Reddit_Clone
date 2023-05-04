@@ -15,11 +15,11 @@ export interface CommunitySnippet {
   imageURL?: string;
 }
 interface CommunityState {
-  mySnippet: CommunitySnippet[];
+  mySnippets: CommunitySnippet[];
 }
 
 const defaultCommunityState: CommunityState = {
-  mySnippet: [],
+  mySnippets: [],
 };
 export const communityState = atom<CommunityState>({
   key: "communityState",
