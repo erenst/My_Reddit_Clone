@@ -85,14 +85,14 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
+        //4.redirect the user back to communityPage using router
+        router.back();
       }
     } catch (error: any) {
       console.log("handleCreatePostError", error.message);
       setError(true);
     }
     setLoading(false);
-    //4.redirect the user back to communityPage using router
-    router.back();
   };
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
