@@ -10,7 +10,6 @@ import { communityState } from "@/src/atoms/CommunitiesAtom";
 const SubmitPostPage: React.FC = () => {
   const [user] = useAuthState(auth);
   const communityStateValue = useRecoilState(communityState);
-  console.log(communityStateValue);
 
   return (
     <PageContent>
