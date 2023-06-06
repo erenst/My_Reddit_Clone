@@ -6,10 +6,13 @@ import React from "react";
 import { auth } from "@/src/firebase/clientApp";
 import { useRecoilState } from "recoil";
 import { communityState } from "@/src/atoms/CommunitiesAtom";
+import useCommunityData from "@/src/hooks/useCommunityData";
+import About from "@/src/components/Community/About";
 
 const SubmitPostPage: React.FC = () => {
   const [user] = useAuthState(auth);
-  const communityStateValue = useRecoilState(communityState);
+  // const communityStateValue = useRecoilState(communityState);
+  const { communityStateValue } = useCommunityData();
 
   return (
     <PageContent>
@@ -19,7 +22,11 @@ const SubmitPostPage: React.FC = () => {
         </Box>
         {user && <NewPostForm user={user} />}
       </>
-      <></>
+      <>
+        {communityStateValue.currentCommunity && (
+          <About communityData={communityStateValue.currentCommunity} />
+        )}
+      </>
     </PageContent>
   );
 };
