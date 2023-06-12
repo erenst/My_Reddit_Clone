@@ -41,7 +41,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           <Text color="gray.600">
             {moment(new Date(comment.createAt.seconds * 1000)).fromNow()}
           </Text>
-          {loadingDelete && <Spinner size="sm" />}
+          {loadingDelete && <Spinner size="md" />}
         </Stack>
         <Text fontSize="10pt" m={2}>
           {comment.text}
