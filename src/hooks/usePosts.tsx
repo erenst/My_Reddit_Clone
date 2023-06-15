@@ -13,7 +13,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { communityState } from "../atoms/CommunitiesAtom";
+import { communityState } from "../atoms/communitiesAtom";
 import { authModalState } from "../atoms/authModalAtom";
 import { useRouter } from "next/router";
 

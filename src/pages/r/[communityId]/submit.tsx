@@ -5,7 +5,7 @@ import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { auth } from "@/src/firebase/clientApp";
 import { useRecoilState } from "recoil";
-import { communityState } from "@/src/atoms/CommunitiesAtom";
+import { communityState } from "@/src/atoms/communitiesAtom";
 import useCommunityData from "@/src/hooks/useCommunityData";
 import About from "@/src/components/Community/About";
 

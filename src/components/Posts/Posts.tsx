@@ -1,4 +1,4 @@
-import { Community } from "@/src/atoms/CommunitiesAtom";
+import { Community } from "@/src/atoms/communitiesAtom";
 import { Post } from "@/src/atoms/postsAtom";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import usePosts from "@/src/hooks/usePosts";
@@ -49,7 +49,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
   };
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [communityData]);
   return (
     <>
       {loading ? (

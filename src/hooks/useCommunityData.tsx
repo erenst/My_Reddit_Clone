@@ -4,7 +4,7 @@ import {
   Community,
   CommunitySnippet,
   communityState,
-} from "../atoms/CommunitiesAtom";
+} from "../atoms/communitiesAtom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/clientApp";
 import {

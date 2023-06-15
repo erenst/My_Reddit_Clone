@@ -19,7 +19,7 @@ import { MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
 import { auth } from "@/src/firebase/clientApp";
 import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authModalState } from "@/src/atoms/authModalAtom";
-import { communityState } from "@/src/atoms/CommunitiesAtom";
+import { communityState } from "@/src/atoms/communitiesAtom";
 type UserMenuProps = {
   user?: User | null;
 };

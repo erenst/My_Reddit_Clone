@@ -1,4 +1,8 @@
-import { Community, communityState } from "@/src/atoms/CommunitiesAtom";
+import {
+  Community,
+  CommunitySnippet,
+  communityState,
+} from "@/src/atoms/communitiesAtom";
 import { auth, firestore, storage } from "@/src/firebase/clientApp";
 import useSelectFile from "@/src/hooks/useSelectFile";
 import {
@@ -43,13 +47,34 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
       await updateDoc(doc(firestore, "communities", communityData.id), {
         imageURL: downloadURL,
       });
-      setCommunityStateValue((prev) => ({
-        ...prev,
-        currentCommunity: {
-          ...prev.currentCommunity,
+
+      setCommunityStateValue((prev) => {
+        const id = prev.mySnippets.findIndex(
+          (snippet) => snippet.communityId === communityData.id
+        );
+        const newSnippet: CommunitySnippet = {
+          ...prev.mySnippets[id],
           imageURL: downloadURL,
-        } as Community,
-      }));
+        };
+        // const newSnippets = prev.mySnippets
+        //   .filter((snippet) => snippet.communityId !== communityData.id)
+        //   .concat(newSnippet);
+        const newSnippets = prev.mySnippets.map((snippet) => {
+          if (snippet.communityId !== communityData.id) {
+            return snippet;
+          } else {
+            return newSnippet;
+          }
+        });
+
+        return {
+          currentCommunity: {
+            ...prev.currentCommunity,
+            imageURL: downloadURL,
+          } as Community,
+          mySnippets: newSnippets,
+        };
+      });
     } catch (error) {
       console.log("onUpdateImage Error", error);
     }

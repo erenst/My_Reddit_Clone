@@ -1,4 +1,4 @@
-import { Community, communityState } from "@/src/atoms/CommunitiesAtom";
+import { Community, communityState } from "@/src/atoms/communitiesAtom";
 import About from "@/src/components/Community/About";
 import CreatePostLink from "@/src/components/Community/CreatePostLink";
 import Header from "@/src/components/Community/Header";
@@ -22,7 +22,7 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
       ...prev,
       currentCommunity: communityData,
     }));
-  }, []);
+  }, [communityData]);
   if (!communityData) {
     return <NotFound />;
   }
