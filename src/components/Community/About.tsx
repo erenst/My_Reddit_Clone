@@ -68,6 +68,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         });
 
         return {
+          ...prev,
           currentCommunity: {
             ...prev.currentCommunity,
             imageURL: downloadURL,
