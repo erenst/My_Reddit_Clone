@@ -5,6 +5,7 @@ import { auth, firestore } from "../firebase/clientApp";
 import { useEffect, useState } from "react";
 import {
   collection,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -12,7 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 import usePosts from "../hooks/usePosts";
-import { Post } from "../atoms/postsAtom";
+import { Post, PostVote } from "../atoms/postsAtom";
 import PostLoader from "../components/Posts/PostLoader";
 import { Stack } from "@chakra-ui/react";
 import PostItem from "../components/Posts/PostItem";
@@ -85,7 +86,26 @@ const Home: NextPage = () => {
     }
     setLoading(false);
   };
-  const getUserPostVotes = () => {};
+  const getUserPostVotes = async () => {
+    try {
+      const postIds = postStateValue.posts.map((post) => post.id);
+      const postVoteQuery = query(
+        collection(firestore, `users/${user?.uid}/postVotes`),
+        where("postId", "in", postIds)
+      );
+      const postVoteDocs = await getDocs(postVoteQuery);
+      const postVotes = postVoteDocs.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: postVotes as PostVote[],
+      }));
+    } catch (error) {
+      console.log("getUserPostVotes error", error);
+    }
+  };
 
   useEffect(() => {
     if (communityStateValue.snippetsFetched) buildUserHomeFeed();
@@ -93,6 +113,15 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
   }, [user, loadingUser]);
+  useEffect(() => {
+    if (user && postStateValue.posts.length) getUserPostVotes();
+    return () => {
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    };
+  }, [user, postStateValue.posts]);
   return (
     <PageContent>
       <>
