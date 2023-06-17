@@ -103,6 +103,7 @@ const Recommendation: React.FC = () => {
                           </Text>
                           {item.imageURL ? (
                             <Image
+                              alt=""
                               src={item.imageURL}
                               boxSize="28px"
                               mr={2}
